@@ -4,13 +4,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/file.h>
+#include <time.h>
 
 #define LOCKFILE "lock"
 #define STRFILE "str.txt"
 int main(){
-    char pans = '5'; // flag part
 
-    int bufsize[7] = {25, 26, 27, 28, 29, 30, 40};
+    // int bufsize[7] = {40, 26, 27, 28, 29, 30, 40};
     // int bufsize[] = {40};
     int filelen = 1099;
 
@@ -20,9 +20,9 @@ int main(){
 
     int result = 0;
     int ans = 0;
-    int times = sizeof(bufsize)/sizeof(int);
-    int time = 7; // obfuscate
-    char res[10] = "kalibotboy"; // flag part
+    // int times = sizeof(bufsize)/sizeof(int);
+    int times = 7;
+    int seed = times; // random seed
 
     while(times--){
         result = 0;
@@ -41,8 +41,21 @@ int main(){
         char stringA[100];
         char stringB[100];
         char another[2000];
+        
+        srand(seed);
+        seed = rand();
+        seed %= 19;
+        seed += 25;
 
-        int len = bufsize[times];
+        printf("seed=%d\n",seed);
+        fflush(stdout); 
+        // bufsize[times] = seed;
+
+        // int len = bufsize[times];
+        int len = seed;
+        printf("len=%d\n",len);
+        fflush(stdout); 
+
 
         strncpy(stringA, allfile, len);
         strncpy(stringB, &allfile[len], len);
@@ -50,6 +63,14 @@ int main(){
 
         strcat(another, stringA);
         strcat(another, stringB);
+
+        int i;
+        for(i=strlen(stringA);i>=len;i--){
+            stringA[i] = '\0';
+        }
+        for(i=strlen(stringB);i>=len;i--){
+            stringB[i] = '\0';
+        }
 
 
         lseek(fd,0,SEEK_SET);
@@ -63,17 +84,19 @@ int main(){
         strcat(command, stringA);
         strcat(command, " ");
         strcat(command, stringB);
+
+        // printf("command=%s\n", command);
+        // fflush(stdout); 
+
         result = system(command);
         result /= 256;
-        fflush(stdout); 
         printf("%s\n%s\n",stringA, stringB);
         fflush(stdout); 
 
         scanf("%d",&ans);
+        seed = ans;
+        
         if(result != ans){ // answer fault
-            if(time == 7){ // obfuscate
-                int tome = time +9;
-            }
             printf("you ");
             fflush(stdout); 
             printf("are ");
@@ -82,14 +105,7 @@ int main(){
             fflush(stdout); 
             exit(0);
         }
-        else{
-            res[times] = 'l';
-            if(time == 7){ // obfuscate
-                int tome = time +9;
-            }
-        }
     }
-    char f3[6] = "9zzZi1";
     // print the flag
 
     printf("Bingo! Please write something you want to talk to organizer:");
@@ -100,12 +116,6 @@ int main(){
     fflush(stdout); 
     printf("MACDX{hello_world_123654_fffffft}");
     fflush(stdout); 
-    // if( 1 == 1){
-    //     printf("%c",pans);
-    // }
-    // printf("%s",res);
-    // printf("hiv");
-    // printf("%s\n",f3);
     
     
     return 0;
