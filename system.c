@@ -47,14 +47,14 @@ int main(){
         seed %= 19;
         seed += 25;
 
-        printf("seed=%d\n",seed);
-        fflush(stdout); 
+        // printf("seed=%d\n",seed);
+        // fflush(stdout); 
         // bufsize[times] = seed;
 
         // int len = bufsize[times];
         int len = seed;
-        printf("len=%d\n",len);
-        fflush(stdout); 
+        // printf("len=%d\n",len);
+        // fflush(stdout); 
 
 
         strncpy(stringA, allfile, len);
@@ -91,6 +91,8 @@ int main(){
         result = system(command);
         result /= 256;
         printf("%s\n%s\n",stringA, stringB);
+        fflush(stdout); 
+        printf("input lcsqs:");
         fflush(stdout); 
 
         scanf("%d",&ans);
