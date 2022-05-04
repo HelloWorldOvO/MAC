@@ -44,8 +44,8 @@ int main(){
         
         srand(seed);
         seed = rand();
-        seed %= 19;
-        seed += 25;
+        seed %= 23;
+        seed += 27;
 
         // printf("seed=%d\n",seed);
         // fflush(stdout); 
@@ -116,7 +116,7 @@ int main(){
     scanf("%s",final);
     printf("Thanks!The flag is ");
     fflush(stdout); 
-    printf("MACDX{hello_world_123654_fffffft}");
+    printf("MACDX{Algorithm_Lcsqs_game_30}");
     fflush(stdout); 
     
     
